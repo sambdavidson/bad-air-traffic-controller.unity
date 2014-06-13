@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 49d8bbc10979c2a408d092bc14a54f6c
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - airplaneImage: {instanceID: 0}
+  - selectedShader: {fileID: 4800000, guid: 6a0101a469b8a7742be3b6698dc13cf4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
