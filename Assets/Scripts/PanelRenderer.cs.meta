@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 00ef93633bb9d734f985a839743bb766
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - airplaneSpritePrefab: {fileID: 100000, guid: 0322597ff6b317248a5ab5d6cc0f5e30,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
