@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: 00ef93633bb9d734f985a839743bb766
+guid: 79b38c3e331cbc24cb4fe306ecf1c2d6
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - airplaneSpritePrefab: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

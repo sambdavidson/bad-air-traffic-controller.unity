@@ -1,0 +1,13 @@
+Bad Air Traffic Controller
+Design Doc
+
+Trying to stay focused.
+
+Gui text
+	Display which camera you are using in the top left corner.
+	Display the currently selected airplanes info in the top right had corner
+		with a fancy little line drawing to the airplanes
+	Clickable buttons that pan the camera to different parts of the airplanes.
+Pathfinding for the airplanes
+	Stress the feature that has a timer on when the airplane will arrive at a certain point,
+		used for timing it so two airplanes collide
