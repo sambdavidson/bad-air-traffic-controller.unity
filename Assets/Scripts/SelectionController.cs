@@ -95,12 +95,14 @@ public class SelectionController : MonoBehaviour {
 		float selectedAirplaneLength = 000.0f;
 		int selectedAirplanePassengers = 0;
 		float selectedAirplaneFuel = 0;
+		int selectedAirplaneCost = 0;
 		if (airplaneAI != null) {
 			selectedAirplaneName = airplaneAI.airplaneTitle;
 			selectedAirplaneSprite = airplaneAI.airplaneImage.texture;
 			selectedAirplaneLength = airplaneAI.length;
 			selectedAirplanePassengers = airplaneAI.GetPassengers();
 			selectedAirplaneFuel = airplaneAI.GetFuel();
+			selectedAirplaneCost = airplaneAI.GetCost();
 		}
 		// Airplane Name
 
@@ -114,9 +116,20 @@ public class SelectionController : MonoBehaviour {
 
 		// Airplane Passengers
 		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 30, 240, 30), "Passengers: " + selectedAirplanePassengers);
+		DrawColorBar (305, Screen.height - airPanCurrent + 50, selectedAirplanePassengers / 25);
 
 		// Airplane Fuel
 		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 60, 240, 30), "Fuel: " + selectedAirplaneFuel.ToString("F2") + " Gal");
+
+		//Airplane Cost
+			//Breaking into string and adding commas.
+			string costToDisplay = selectedAirplaneCost.ToString ();
+			int originalLength = (costToDisplay.Length - 1) / 3;
+			for (int x = 1 ; x <= originalLength; x++) {
+				costToDisplay = costToDisplay.Insert(costToDisplay.Length - ((x * 3)+ x - 1), "," );
+
+			}
+		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 90, 240, 30), "Cost Per Unit: " + costToDisplay + " USD");
 
 		// Spacebar Text
 		string spacebarLabel = "Spacebar: ▼";
@@ -155,6 +168,56 @@ public class SelectionController : MonoBehaviour {
 				airPanAnimState = 2;
 			}
 		}
+
+	}
+	public Sprite colorbarOverlay;
+	public Sprite colorbarFront;
+	public Sprite colorbarMid;
+	public Sprite colorbarEnd;
+
+	private Color colorSegmentOne = new Color (0, 25, 153);
+	private Color colorSegmentTwo = new Color (0, 217, 255);
+	private Color colorSegmentThree = new Color (0, 195, 115);
+	private Color colorSegmentFour = new Color (89, 212, 23);
+
+	private void DrawColorBar(float x, float y, int segments) {
+
+		//Draw all segments; Starting with last and falling backwards.
+		Color prevGUIColor = GUI.color;
+		switch(segments) 
+		{
+		default:
+			print ("Default");
+			goto case 6;
+		case 6:
+			print ("6");
+			goto case 5;
+		case 5:
+			print ("5");
+			goto case 4;
+		case 4:
+			print ("4");
+			goto case 3;
+		case 3:
+			GUI.color = colorSegmentFour;
+			GUI.DrawTexture ( new Rect (x + 54, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
+			goto case 2;
+		case 2:
+			GUI.color = colorSegmentThree;
+			GUI.DrawTexture ( new Rect (x + 34, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
+			goto case 1;
+		case 1:
+			GUI.color = colorSegmentTwo;
+			GUI.DrawTexture ( new Rect (x + 15, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
+			goto case 0;
+		case 0:
+			GUI.color = colorSegmentOne;
+			GUI.DrawTexture ( new Rect (x + 1, y + 2, colorbarFront.texture.width, colorbarFront.texture.height), colorbarFront.texture);
+			break;
+		}
+		GUI.color = prevGUIColor;
+
+		GUI.DrawTexture (new Rect (x, y, colorbarOverlay.texture.width, colorbarOverlay.texture.height), colorbarOverlay.texture);
 
 	}
 

@@ -55,6 +55,9 @@ public class AirplaneAI : MonoBehaviour {
 	public float GetFuel() {
 		return currentFuel;
 	}
+	public int GetCost() {
+		return costPerUnit;
+	}
 
 
 
