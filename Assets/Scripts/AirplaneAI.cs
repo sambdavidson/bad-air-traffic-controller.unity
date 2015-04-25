@@ -13,6 +13,7 @@ public class AirplaneAI : MonoBehaviour {
 
 	private int currentPassengers;
 	private float currentFuel;
+	private int currentWeight;
 	
 
 	//Selection Variables
@@ -31,6 +32,7 @@ public class AirplaneAI : MonoBehaviour {
 
 		currentPassengers = maximumPassengers - (int)(Mathf.Sin (Random.value) * (maximumPassengers / 1.3));
 		currentFuel = Mathf.Sin (Random.value) * (float)fuelCapacity;
+		currentWeight = baseWeight + (int) (currentPassengers * (200 * (0.5 + (Mathf.Sin (Random.value) * 0.5)))); 
 
 	}
 	
@@ -58,7 +60,9 @@ public class AirplaneAI : MonoBehaviour {
 	public int GetCost() {
 		return costPerUnit;
 	}
-
+	public int GetWeight() {
+		return currentWeight;
+	}
 
 
 }

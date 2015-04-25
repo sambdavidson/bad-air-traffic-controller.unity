@@ -96,6 +96,7 @@ public class SelectionController : MonoBehaviour {
 		int selectedAirplanePassengers = 0;
 		float selectedAirplaneFuel = 0;
 		int selectedAirplaneCost = 0;
+		int selectedAirplaneWeight = 0;
 		if (airplaneAI != null) {
 			selectedAirplaneName = airplaneAI.airplaneTitle;
 			selectedAirplaneSprite = airplaneAI.airplaneImage.texture;
@@ -103,6 +104,7 @@ public class SelectionController : MonoBehaviour {
 			selectedAirplanePassengers = airplaneAI.GetPassengers();
 			selectedAirplaneFuel = airplaneAI.GetFuel();
 			selectedAirplaneCost = airplaneAI.GetCost();
+			selectedAirplaneWeight = airplaneAI.GetWeight();
 		}
 		// Airplane Name
 
@@ -114,12 +116,10 @@ public class SelectionController : MonoBehaviour {
 		GUI.DrawTexture (new Rect (25, Screen.height - airPanCurrent + 35, 200, 100), selectedAirplaneSprite);
 		GUI.Label (new Rect (95, Screen.height - airPanCurrent + 120, 240, 30), selectedAirplaneLength + " Meters");
 
-		// Airplane Passengers
-		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 30, 240, 30), "Passengers: " + selectedAirplanePassengers);
-		DrawColorBar (305, Screen.height - airPanCurrent + 50, selectedAirplanePassengers / 25);
-
+		//Column 1
 		// Airplane Fuel
-		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 60, 240, 30), "Fuel: " + selectedAirplaneFuel.ToString("F2") + " Gal");
+		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 30, 240, 30), "Fuel: " + selectedAirplaneFuel.ToString("F2") + " Gal");
+		DrawColorBar (305, Screen.height - airPanCurrent + 50, (int) selectedAirplaneFuel / 5000);
 
 		//Airplane Cost
 			//Breaking into string and adding commas.
@@ -129,7 +129,19 @@ public class SelectionController : MonoBehaviour {
 				costToDisplay = costToDisplay.Insert(costToDisplay.Length - ((x * 3)+ x - 1), "," );
 
 			}
-		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 90, 240, 30), "Cost Per Unit: " + costToDisplay + " USD");
+		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 60, 240, 30), "Cost Per Unit: " + costToDisplay + " USD");
+		DrawColorBar (305, Screen.height - airPanCurrent + 80, selectedAirplaneCost / 25000000);
+
+		//Airplane Weight
+		GUI.Label (new Rect (300, Screen.height - airPanCurrent + 90, 240, 30), "Weight: " + selectedAirplaneWeight + " LBS");
+		DrawColorBar (305, Screen.height - airPanCurrent + 110, selectedAirplaneWeight / 40000);
+
+
+		//Column 2
+
+		// Airplane Passengers
+		GUI.Label (new Rect (500, Screen.height - airPanCurrent + 30, 240, 30), "Passengers: " + selectedAirplanePassengers);
+		DrawColorBar (505, Screen.height - airPanCurrent + 50, selectedAirplanePassengers / 40);
 
 		// Spacebar Text
 		string spacebarLabel = "Spacebar: ▼";
@@ -175,10 +187,13 @@ public class SelectionController : MonoBehaviour {
 	public Sprite colorbarMid;
 	public Sprite colorbarEnd;
 
-	private Color colorSegmentOne = new Color (0, 25, 153);
-	private Color colorSegmentTwo = new Color (0, 217, 255);
-	private Color colorSegmentThree = new Color (0, 195, 115);
-	private Color colorSegmentFour = new Color (89, 212, 23);
+	private Color colorSegmentOne = new Color (0.0f, 0.098f, 0.6f);
+	private Color colorSegmentTwo = new Color (0.0f, 0.85f, 1.0f);
+	private Color colorSegmentThree = new Color (0.0f, 0.764f, 0.607f);
+	private Color colorSegmentFour = new Color (0.349f, 0.831f, 0.09f);
+	private Color colorSegmentFive = new Color (0.949f, 0.99f, 0.008f);
+	private Color colorSegmentSix = new Color (1.0f, 0.482f, 0.0f);
+	private Color colorSegmentSeven = new Color (0.878f, 0.043f, 0.043f);
 
 	private void DrawColorBar(float x, float y, int segments) {
 
@@ -187,20 +202,22 @@ public class SelectionController : MonoBehaviour {
 		switch(segments) 
 		{
 		default:
-			print ("Default");
 			goto case 6;
 		case 6:
-			print ("6");
+			GUI.color = colorSegmentSeven;
+			GUI.DrawTexture ( new Rect (x + 110, y + 2, colorbarEnd.texture.width, colorbarEnd.texture.height), colorbarEnd.texture);
 			goto case 5;
 		case 5:
-			print ("5");
+			GUI.color = colorSegmentSix;
+			GUI.DrawTexture ( new Rect (x + 91, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
 			goto case 4;
 		case 4:
-			print ("4");
+			GUI.color = colorSegmentFive;
+			GUI.DrawTexture ( new Rect (x + 72, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
 			goto case 3;
 		case 3:
 			GUI.color = colorSegmentFour;
-			GUI.DrawTexture ( new Rect (x + 54, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
+			GUI.DrawTexture ( new Rect (x + 53, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
 			goto case 2;
 		case 2:
 			GUI.color = colorSegmentThree;
@@ -208,11 +225,11 @@ public class SelectionController : MonoBehaviour {
 			goto case 1;
 		case 1:
 			GUI.color = colorSegmentTwo;
-			GUI.DrawTexture ( new Rect (x + 15, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
+			GUI.DrawTexture ( new Rect (x + 16, y + 2, colorbarMid.texture.width, colorbarMid.texture.height), colorbarMid.texture);
 			goto case 0;
 		case 0:
 			GUI.color = colorSegmentOne;
-			GUI.DrawTexture ( new Rect (x + 1, y + 2, colorbarFront.texture.width, colorbarFront.texture.height), colorbarFront.texture);
+			GUI.DrawTexture ( new Rect (x + 2, y + 2, colorbarFront.texture.width, colorbarFront.texture.height), colorbarFront.texture);
 			break;
 		}
 		GUI.color = prevGUIColor;
